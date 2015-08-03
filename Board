@@ -1,0 +1,46 @@
+package com.example.othello;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.view.View;
+
+public class Board extends View {
+
+	float scale;
+
+	public Board(Context context) {
+		super(context);
+		this.othello = (MainActivity) context;
+
+	}
+
+	MainActivity othello;
+
+	protected void onDraw(Canvas g) {
+		System.out.println("paint component was called");
+		// color and draw the board
+		Paint paint = new Paint();
+		paint.setColor(Color.GREEN);
+		g.drawRect(5, 5, 528, 528, paint);
+
+		paint.setColor(Color.BLACK); // draw vertical lines
+		for (int i = 0; i < 8; i++) {
+			g.drawLine(i * 66, 5, i * 66, 528, paint);
+
+		}
+		for (int j = 0; j < 8; j++) { // draw horizontal lines
+			g.drawLine(5, j * 66, 528, j * 66, paint);
+
+		}
+		// draws pieces
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (MainActivity.position[i][j] != null) {
+					MainActivity.position[i][j].drawpiece(g, i * 66, j * 66);
+				}
+			}
+		}
+	}
+}
